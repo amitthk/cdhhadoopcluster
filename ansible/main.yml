@@ -1,0 +1,27 @@
+---
+- name: Prerequisites
+  become: true
+  gather_facts: False
+  hosts: all
+  roles:
+    - common
+
+- name: SCM
+  hosts: scm
+  roles:
+    - cdh-scm
+
+- name: master
+  hosts: masters
+  roles:
+    - cdh-master
+
+- name: worker
+  hosts: workers
+  roles:
+    - cdh-worker
+
+- name: gateway
+  hosts: gateways
+  roles:
+    - cdh-gateway
