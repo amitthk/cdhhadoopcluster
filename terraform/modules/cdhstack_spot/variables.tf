@@ -4,6 +4,7 @@ provider "aws" {
     secret_key ="${var.aws_secret_key}"
 }
 
+variable "spot_price" {}
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
 variable "aws_keypair_name" {}
@@ -18,7 +19,7 @@ variable "public_subnets_cidr_blocks" {
 variable "private_subnets_cidr_blocks" {
   default = []
 }
-variable "cdh_master_count" {}
-variable "cdh_worker_count" {}
+variable "spot_cdh_master_count" {}
+variable "spot_cdh_worker_count" {}
 variable "ingress_from_port" {}
 variable "ingress_to_port" {}
