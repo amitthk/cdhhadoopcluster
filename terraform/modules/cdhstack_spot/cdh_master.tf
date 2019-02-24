@@ -2,6 +2,9 @@ resource "aws_spot_instance_request" "spot_cdh_master" {
     ami = "${var.ami_id}"
     instance_type = "${var.instance_type}"
     key_name = "${var.aws_keypair_name}"
+    wait_for_fulfillment = true
+    associate_public_ip_address = true
+    availability_zone = "${var.availability_zone}"
     count = "${var.spot_cdh_master_count}"
     spot_price = "${var.spot_price}"
     security_groups = ["${aws_security_group.cdhstack.name}"]

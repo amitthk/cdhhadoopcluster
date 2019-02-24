@@ -3,6 +3,9 @@ resource "aws_spot_instance_request" "spot_cdh_worker" {
     instance_type = "${var.instance_type}"
     key_name = "${var.aws_keypair_name}"
     count = "${var.spot_cdh_worker_count}"
+    availability_zone = "${var.availability_zone}"
+    wait_for_fulfillment = true
+    associate_public_ip_address = true
     security_groups = ["${aws_security_group.cdhstack.name}"]
 
   tags {

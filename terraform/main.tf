@@ -6,6 +6,7 @@ module "cdhstack_spot" {
   aws_secret_key = "${var.aws_secret_key}"
   aws_keypair_name = "${var.aws_keypair_name}"
   region = "${var.region}"
+  availability_zone = "${var.availability_zone}"
   instance_type = "${var.instance_type}"
   vpc_id = "${var.vpc_id}"
   cdh_stack_name = "${var.cdh_stack_name}"

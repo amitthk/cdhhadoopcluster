@@ -81,3 +81,8 @@ variable "ingress_to_port" {
   description = "ingress_to_port"
   default = 0
 }
+
+variable "availability_zone" {
+  description = "availability_zone"
+  default = "ap-southeast-1a"
+}
