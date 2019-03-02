@@ -28,12 +28,16 @@ stages{
 
     stage('Create Stack'){
         steps{
+            withCredentials([file(credentialsId: 'aws_terraform_tfvars', variable: 'aws_terraform_tfvars')]){
             sh '''
             cd $APP_BASE_DIR/terraform
+            cp $aws_terraform_tfvars $APP_BASE_DIR/terraform/terraform.tfvars
+            /usr/local/bin/terraform init
             /usr/local/bin/terraform plan
             /usr/local/bin/terraform apply
             python make_inventory.py terraform.tfstate
             '''
+            }
         }
     }
     stage('Deploy'){
@@ -43,6 +47,14 @@ stages{
         ansible-playbook -i hosts main.yml
         '''
         }
+    }
+}
+
+post {
+    always {
+        sh '''
+        rm -f $APP_BASE_DIR/terraform/terraform.tfvars | true
+        '''
     }
 }
 }
