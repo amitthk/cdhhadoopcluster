@@ -54,7 +54,7 @@ variable "ansible_master_security_group" {
 
 variable "private_subnet_cidr" {
   description = "private_subnet_cidr"
-  default = "10.1.0.0/16"
+  default = "10.0.0.128/25"
 }
 
 variable "cdh_master_count" {
