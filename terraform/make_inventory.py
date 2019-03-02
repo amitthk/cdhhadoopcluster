@@ -4,7 +4,7 @@ import sys
 import os
 
 PATH = os.path.dirname(os.path.abspath(__file__))
-INVENTORY_FILE_PATH = os.path.join(PATH,'..','ansible\\hosts')
+INVENTORY_FILE_PATH = os.path.join(PATH,'..','ansible','hosts')
 inventory_template = '''[masters]
 {spot_cdh_master}
 
