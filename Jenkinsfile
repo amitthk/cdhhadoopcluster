@@ -1,3 +1,7 @@
+def getEnvVar(String deployEnv, String paramName){
+    return sh (script: "grep '${paramName}' env_vars/${deployEnv}.properties|cut -d'=' -f2", returnStdout: true).trim();
+}
+
 pipeline{
 
 parameters {
@@ -19,8 +23,8 @@ stages{
         steps{
             checkout scm;
         script{
-        env.APP_ID= getEnvVar('appId')
         env.DEPLOY_ENV="$params.DEPLOY_ENV"
+        env.APP_ID= getEnvVar("${env.DEPLOY_ENV}",'APP_ID')
         env.APP_BASE_DIR=sh(script: "pwd", returnStdout: true)
         }
         echo "do some init here";
