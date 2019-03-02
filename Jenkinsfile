@@ -9,6 +9,7 @@ agent any
 parameters {
     password(name:'AWS_KEY', defaultValue: '', description:'Enter AWS_KEY')
     choice(name: 'DEPLOY_ENV', choices: ['dev','sit','uat','prod'], description: 'Select the deploy environment')
+    choice(name: 'ACTION_TYPE', choices: ['create','destroy'], description: 'Create or destroy')
 }
 
 stages{
@@ -16,6 +17,7 @@ stages{
         steps{
         script{
         env.DEPLOY_ENV = "$params.DEPLOY_ENV"
+        env.ACTION_TYPE = "$params.ACTION_TYPE"
         env.APP_ID = getEnvVar("${env.DEPLOY_ENV}",'APP_ID')
         env.APP_BASE_DIR = pwd()
         env.GIT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true)
@@ -27,6 +29,11 @@ stages{
     }
 
     stage('Create Stack'){
+        when {
+        expression {
+            return env.ACTION_TYPE == 'create';
+            }
+        }
         steps{
             withCredentials([file(credentialsId: 'aws_terraform_tfvars', variable: 'aws_terraform_tfvars')]){
             sh '''
@@ -41,11 +48,32 @@ stages{
         }
     }
     stage('Deploy'){
+        when {
+        expression {
+            return env.ACTION_TYPE == 'create';
+            }
+        }
         steps{
         sh '''
         cd $APP_BASE_DIR/ansible
         ansible-playbook -i hosts main.yml
         '''
+        }
+    }
+    stage('Destroy Stack'){
+        when {
+        expression {
+            return env.ACTION_TYPE != 'destroy';
+            }
+        }
+        steps{
+            withCredentials([file(credentialsId: 'aws_terraform_tfvars', variable: 'aws_terraform_tfvars')]){
+            sh '''
+            cd $APP_BASE_DIR/terraform
+            cp $aws_terraform_tfvars $APP_BASE_DIR/terraform/terraform.tfvars
+            /usr/local/bin/terraform destroy -input=false tfplan
+            '''
+            }
         }
     }
 }
