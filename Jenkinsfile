@@ -4,7 +4,7 @@ def getEnvVar(String deployEnv, String paramName){
 
 pipeline{
 
-agent { label any }
+agent any
 
 parameters {
     password(name:'AWS_KEY', defaultValue: '', description:'Enter AWS_KEY')
