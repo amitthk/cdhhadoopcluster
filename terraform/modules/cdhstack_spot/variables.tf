@@ -14,6 +14,7 @@ variable "instance_type" {}
 variable "vpc_id" {}
 variable "cdh_stack_name" {}
 variable "ami_id" {}
+variable "ansible_master_security_group" {}
 variable "public_subnets_cidr_blocks" {
   default = []
 }

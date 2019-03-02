@@ -47,6 +47,11 @@ variable "private_subnets_cidr_blocks" {
   default = []
 }
 
+variable "ansible_master_security_group" {
+  description = "ansible_master_security_group"
+  default = "sg-d899aebf"
+}
+
 variable "cdh_master_count" {
   description = "cdh_master_count"
   default = 1

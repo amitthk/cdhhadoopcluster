@@ -17,4 +17,5 @@ module "cdhstack_spot" {
   spot_cdh_worker_count = "${var.spot_cdh_worker_count}"
   ingress_from_port = "${var.ingress_from_port}"
   ingress_to_port = "${var.ingress_to_port}"
+  ansible_master_security_group = "${var.ansible_master_security_group}"
 }

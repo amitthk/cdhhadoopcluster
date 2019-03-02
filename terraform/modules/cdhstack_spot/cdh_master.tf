@@ -17,7 +17,19 @@ resource "aws_spot_instance_request" "spot_cdh_master" {
   volume_tags {
       Name = "spot_cdh_master-${count.index}"
   }
+
+  provisioner "local-exec" {
+    command = "aws ec2 create-tags --resources ${self.spot_instance_id} --tags Key=Name,Value=spot_cdh_master-${count.index}"
+
+    environment {
+      AWS_ACCESS_KEY_ID = "${var.aws_access_key}"
+      AWS_SECRET_ACCESS_KEY = "${var.aws_secret_key}"
+      AWS_DEFAULT_REGION = "${var.region}"
+    }
+  }
 }
+
+
 
 resource "null_resource" "after-spot_cdh_master" {
   depends_on = ["aws_spot_instance_request.spot_cdh_master"]

@@ -17,6 +17,13 @@ resource "aws_security_group" "cdhstack" {
     cidr_blocks = ["${var.public_subnets_cidr_blocks}"]
   }
 
+  ingress {
+    from_port   = "22"
+    to_port     = "22"
+    protocol    = "tcp"
+    security_groups = ["${var.ansible_master_security_group}"]
+  }
+
   egress {
     from_port   = "0"
     to_port     = "65535"
