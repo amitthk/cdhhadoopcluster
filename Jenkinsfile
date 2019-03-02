@@ -7,7 +7,6 @@ pipeline{
 agent { label any }
 
 parameters {
-    string(name:'STACK_NAME', defaultValue: 'cdhhadoopcluster', description, 'STACK_NAME') 
     password(name:'AWS_KEY', defaultValue: '', description:'Enter AWS_KEY')
     choice(name: 'DEPLOY_ENV', choices: ['dev','sit','uat','prod'], description: 'Select the deploy environment')
 }
