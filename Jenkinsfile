@@ -11,7 +11,7 @@ choice(name: 'DEPLOY_ENV', choices:'dev\nsit\nuat',description: 'Select the depl
 }
 
 agent {
-    lable any
+    label any
 }
 
 environment {
