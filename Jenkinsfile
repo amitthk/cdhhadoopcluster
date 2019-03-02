@@ -4,7 +4,7 @@ def getEnvVar(String deployEnv, String paramName){
 
 pipeline{
 
-agent any
+agent { label any }
 
 parameters {
     string(name:'STACK_NAME', defaultValue: 'cdhhadoopcluster', description, 'STACK_NAME') 
@@ -12,18 +12,15 @@ parameters {
     choice(name: 'DEPLOY_ENV', choices: ['dev','sit','uat','prod'], description: 'Select the deploy environment')
 }
 
-environment {
-    GIT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true)
-}
-
 stages{
     stage('Init'){
         steps{
-            checkout scm;
         script{
-        env.DEPLOY_ENV="$params.DEPLOY_ENV"
-        env.APP_ID= getEnvVar("${env.DEPLOY_ENV}",'APP_ID')
-        env.APP_BASE_DIR=sh(script: "pwd", returnStdout: true)
+        env.DEPLOY_ENV = "$params.DEPLOY_ENV"
+        env.APP_ID = getEnvVar("${env.DEPLOY_ENV}",'APP_ID')
+        env.APP_BASE_DIR = pwd()
+        env.GIT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true)
+        env.TIMESTAMP = sh (script: "date +'%Y%m%d%H%M%S%N' | sed 's/[0-9][0-9][0-9][0-9][0-9][0-9]\$//g'", returnStdout: true)
         }
         echo "do some init here";
 
