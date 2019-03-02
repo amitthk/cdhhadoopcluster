@@ -39,3 +39,12 @@ resource "aws_security_group" "cdhstack" {
     Group = "${var.cdh_stack_name}"
   }
 }
+
+resource "aws_subnet" "cdh_private_subnet" {
+  vpc_id     = "${var.vpc_id}"
+  cidr_block = "${var.private_subnet_cidr}"
+
+  tags = {
+    Name = "cdh_private_subnet"
+  }
+}

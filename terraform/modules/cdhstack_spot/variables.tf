@@ -21,6 +21,7 @@ variable "public_subnets_cidr_blocks" {
 variable "private_subnets_cidr_blocks" {
   default = []
 }
+variable "private_subnet_cidr" {}
 variable "spot_cdh_master_count" {}
 variable "spot_cdh_worker_count" {}
 variable "ingress_from_port" {}
