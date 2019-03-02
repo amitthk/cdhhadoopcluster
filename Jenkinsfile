@@ -6,6 +6,10 @@ text(name:'STACK_NAME', defaultValue: 'cdhhadoopcluster',description, 'STACK_NAM
 choice(name: 'DEPLOY_ENV', choices:'dev\nsit\nuat',description: 'Select the deploy environment')
 }
 
+agent {
+    lable any
+}
+
 environment {
     GIT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true)
 }
