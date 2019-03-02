@@ -30,8 +30,8 @@ stages{
         steps{
             sh '''
             cd $APP_BASE_DIR/terraform
-            terraform plan
-            terraform apply
+            /usr/local/bin/terraform plan
+            /usr/local/bin/terraform apply
             python make_inventory.py terraform.tfstate
             '''
         }
