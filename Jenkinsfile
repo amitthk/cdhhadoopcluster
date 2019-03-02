@@ -29,7 +29,7 @@ stages{
     stage('Create Stack'){
         steps{
             sh '''
-            cd $(APP_BASE_DIR)/terraform
+            cd $APP_BASE_DIR/terraform
             terraform plan
             terraform apply
             python make_inventory.py terraform.tfstate
@@ -39,7 +39,7 @@ stages{
     stage('Deploy'){
         steps{
         sh '''
-        cd $(APP_BASE_DIR)/ansible
+        cd $APP_BASE_DIR/ansible
         ansible-playbook -i hosts main.yml
         '''
         }
