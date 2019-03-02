@@ -63,7 +63,7 @@ stages{
     stage('Destroy Stack'){
         when {
         expression {
-            return env.ACTION_TYPE != 'destroy';
+            return env.ACTION_TYPE == 'destroy';
             }
         }
         steps{
@@ -71,7 +71,7 @@ stages{
             sh '''
             cd $APP_BASE_DIR/terraform
             cp $aws_terraform_tfvars $APP_BASE_DIR/terraform/terraform.tfvars
-            /usr/local/bin/terraform destroy -input=false tfplan
+            /usr/local/bin/terraform destroy -force
             '''
             }
         }
