@@ -48,7 +48,7 @@
 
 - name: Copy over the NTP configuration
   template:
-    src: ./templates/ntp.conf.j2
+    src: ntp.conf.j2
     dest: /etc/ntp.conf
   notify:
   - restart ntpd
