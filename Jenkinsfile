@@ -44,9 +44,11 @@ stages{
             /usr/local/bin/terraform apply -input=false tfplan
             '''
             sh '''
+            cd $APP_BASE_DIR/terraform
             rm -f $APP_BASE_DIR/ansible/hosts | true
-            chmod 755 ./make_inventory.py
-            python ./make_inventory.py ./terraform.tfstate
+            chmod 755 $APP_BASE_DIR/terraform/make_inventory.py
+            ls -lart
+            python $APP_BASE_DIR/teraform/make_inventory.py $APP_BASE_DIR/terraform/terraform.tfstate
             '''
             }
         }
