@@ -1,2 +1,10 @@
 ---
 # defaults file for common
+common_yum_packages:
+  - python-pip
+  - gcc
+  - gcc-c++
+  - make
+  - awscli
+ansible_become_user: root
+ansible_become_method: sudo
