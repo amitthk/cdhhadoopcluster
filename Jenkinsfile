@@ -9,7 +9,7 @@ agent any
 parameters {
     password(name:'AWS_KEY', defaultValue: '', description:'Enter AWS_KEY')
     choice(name: 'DEPLOY_ENV', choices: ['dev','sit','uat','prod'], description: 'Select the deploy environment')
-    choice(name: 'ACTION_TYPE', choices: ['create','destroy'], description: 'Create or destroy')
+    choice(name: 'ACTION_TYPE', choices: ['deploy','create','destroy'], description: 'Create or destroy')
 }
 
 stages{
@@ -50,7 +50,7 @@ stages{
     stage('Deploy'){
         when {
         expression {
-            return env.ACTION_TYPE == 'create';
+            return env.ACTION_TYPE == 'deploy';
             }
         }
         steps{
