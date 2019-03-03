@@ -69,7 +69,3 @@
 - name: Sync hwclock
   shell: hwclock -w
   tags: ntp
-
-handlers:
-- name: restart ntpd
-  service: name=ntpd state=restarted
