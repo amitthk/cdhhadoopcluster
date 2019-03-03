@@ -5,8 +5,11 @@ import os
 
 PATH = os.path.dirname(os.path.abspath(__file__))
 INVENTORY_FILE_PATH = os.path.join(PATH,'..','ansible','hosts')
-inventory_template = '''[{key}]
-{value}
+inventory_template = '''[masters]
+{spot_cdh_master}
+
+[workers]
+{spot_cdh_worker}
 '''
 
 def parse_file(file_name):
@@ -34,11 +37,10 @@ if __name__ == "__main__":
         sys.exit()
     value_dict = parse_file(sys.argv[1])
     value_dict_normalized = {}
-    inventory_value = ''
     for key, value in value_dict.items():
         if isinstance(value_dict[key],list):
             value_dict_normalized[key] = '\n'.join(value_dict[key])
         else:
             value_dict_normalized[key] = value_dict[key]
-        inventory_value += str(inventory_template.format(**value_dict_normalized))
+    inventory_value = str(inventory_template.format(**value_dict_normalized))
     write_to_file(INVENTORY_FILE_PATH,inventory_value)

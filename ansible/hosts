@@ -1,11 +1,6 @@
 [masters]
-54.169.255.122
+13.250.61.91
 
 [workers]
-54.169.103.235
-13.229.100.57
-
-[all:vars]
-ansible_ssh_user=centos
-ansible_ssh_private_key_file=~/.ssh/amitthk_jenkinsmaster.pem
-ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+54.255.225.66
+54.255.239.148
