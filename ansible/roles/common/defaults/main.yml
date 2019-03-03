@@ -1,10 +1,18 @@
 ---
 # defaults file for common
 common_yum_packages:
-  - python-pip
   - gcc
   - gcc-c++
   - make
   - awscli
+  - ntp
+  - tcpdump
+  - policycoreutils-python
+  - vim
+  - yum-utils
+  - deltarpm
+  - git
+  - python-pip
+
 ansible_become_user: root
 ansible_become_method: sudo

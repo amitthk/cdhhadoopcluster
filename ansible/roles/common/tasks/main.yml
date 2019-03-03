@@ -1,6 +1,14 @@
 ---
 # tasks file for common
 
+- name: enable epel-release repo (or need to pull python-pip to local repo)
+  yum:
+    name: epel-release
+    state: present
+  become: yes
+  become_user: "{{ansible_become_user}}"
+  become_method: "{{ansible_become_method}}"
+
 - name: ensure core packages are installed
   yum:
     name: "{{item}}"
