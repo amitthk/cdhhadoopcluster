@@ -1,2 +1,4 @@
 ---
 # defaults file for cdh-scm
+cloudera_manager_package: cloudera-manager-installer.bin
+repo_base_url: http://archive.cloudera.com/cm5/installer/latest
