@@ -42,7 +42,7 @@
 #     mode: 777
 #   become: true
 
-- name: "install the cloudera manager package"
-  shell: "./{{cloudera_manager_package}} --i-agree-to-all-licenses --noprompt --noreadme --nooptions"
-  args:
-    chdir: /home/{{ansible_ssh_user}}/tmp
+# - name: "install the cloudera manager package"
+#   shell: "./{{cloudera_manager_package}} --i-agree-to-all-licenses --noprompt --noreadme --nooptions"
+#   args:
+#     chdir: /home/{{ansible_ssh_user}}/tmp

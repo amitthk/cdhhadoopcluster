@@ -19,3 +19,4 @@ common_yum_packages:
   - curl
   - unzip
   - tar
+  - mysql-connector-java
