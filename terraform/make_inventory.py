@@ -57,4 +57,5 @@ if __name__ == "__main__":
         else:
             value_dict_normalized[key] = value_dict[key]
     inventory_value = str(inventory_template.format(**value_dict_normalized))
+    print(inventory_value)
     write_to_file(INVENTORY_FILE_PATH,inventory_value)
