@@ -20,3 +20,4 @@ common_yum_packages:
   - unzip
   - tar
   - mysql-connector-java
+  - firewalld
