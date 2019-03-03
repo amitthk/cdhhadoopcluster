@@ -19,6 +19,3 @@ common_yum_packages:
   - curl
   - unzip
   - tar
-
-ansible_become_user: root
-ansible_become_method: sudo
