@@ -13,10 +13,9 @@ module "cdhstack_spot" {
   ami_id = "${var.ami_id}"
   public_subnets_cidr_blocks = "${var.public_subnets_cidr_blocks}"
   private_subnets_cidr_blocks = "${var.private_subnets_cidr_blocks}"
-  private_subnet_cidr = "${var.private_subnet_cidr}"
   spot_cdh_master_count = "${var.spot_cdh_master_count}"
   spot_cdh_worker_count = "${var.spot_cdh_worker_count}"
   ingress_from_port = "${var.ingress_from_port}"
   ingress_to_port = "${var.ingress_to_port}"
-  ansible_master_security_group = "${var.ansible_master_security_group}"
+  vpc_cidr = "${var.vpc_cidr}"
 }

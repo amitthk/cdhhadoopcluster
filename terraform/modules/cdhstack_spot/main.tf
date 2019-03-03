@@ -7,7 +7,7 @@ resource "aws_security_group" "cdhstack" {
     from_port   = "${var.ingress_from_port}"
     to_port     = "${var.ingress_to_port}"
     protocol    = "tcp"
-    cidr_blocks = ["${var.public_subnets_cidr_blocks}", "${var.private_subnets_cidr_blocks}"]
+    cidr_blocks = ["${list(var.public_subnets_cidr_blocks)}", "${list(var.private_subnets_cidr_blocks)}"]
   }
 
   ingress {
@@ -21,7 +21,7 @@ resource "aws_security_group" "cdhstack" {
     from_port   = "22"
     to_port     = "22"
     protocol    = "tcp"
-    security_groups = ["${var.ansible_master_security_group}"]
+    cidr_blocks = ["${var.vpc_cidr}"]
   }
 
   egress {
@@ -39,13 +39,28 @@ resource "aws_security_group" "cdhstack" {
     Group = "${var.cdh_stack_name}"
   }
 }
-/*
+
+
 resource "aws_subnet" "cdh_private_subnet" {
-  vpc_id     = "${var.vpc_id}"
-  cidr_block = "${var.private_subnet_cidr}"
+  vpc_id = "${var.vpc_id}"
+  cidr_block = "${var.private_subnets_cidr_blocks}"
+  availability_zone = "${var.availability_zone}"
 
   tags = {
     Name = "cdh_private_subnet"
   }
+}
+
+/*
+resource "aws_vpc" "default" {
+    cidr_block = "${var.vpc_cidr}"
+    enable_dns_hostnames = true
+    tags {
+        Name = "cdhstack-aws-vpc"
+    }
+}
+
+resource "aws_internet_gateway" "default" {
+    vpc_id = "${aws_vpc.default.id}"
 }
 */

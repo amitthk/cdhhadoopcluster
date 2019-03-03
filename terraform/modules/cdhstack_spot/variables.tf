@@ -14,14 +14,9 @@ variable "instance_type" {}
 variable "vpc_id" {}
 variable "cdh_stack_name" {}
 variable "ami_id" {}
-variable "ansible_master_security_group" {}
-variable "public_subnets_cidr_blocks" {
-  default = []
-}
-variable "private_subnets_cidr_blocks" {
-  default = []
-}
-variable "private_subnet_cidr" {}
+variable "vpc_cidr" {}
+variable "public_subnets_cidr_blocks" {}
+variable "private_subnets_cidr_blocks" {}
 variable "spot_cdh_master_count" {}
 variable "spot_cdh_worker_count" {}
 variable "ingress_from_port" {}

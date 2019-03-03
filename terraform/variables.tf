@@ -39,23 +39,19 @@ variable "ami_id" {
 
 variable "public_subnets_cidr_blocks" {
   description = "public_subnets_cidr_blocks"
-  default = []
+  default = ""
 }
 
 variable "private_subnets_cidr_blocks" {
   description = "private_subnets_cidr_blocks"
-  default = []
+  default = ""
 }
 
-variable "ansible_master_security_group" {
-  description = "ansible_master_security_group"
-  default = "sg-d899aebf"
+variable "vpc_cidr" {
+    description = "CIDR for the whole VPC"
+    default = "172.31.0.0/16"
 }
 
-variable "private_subnet_cidr" {
-  description = "private_subnet_cidr"
-  default = "10.0.0.128/25"
-}
 
 variable "cdh_master_count" {
   description = "cdh_master_count"
