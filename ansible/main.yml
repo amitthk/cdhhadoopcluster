@@ -19,7 +19,7 @@
 - name: kerberos
   hosts: kerberos
   roles:
-    - keberos
+    - kerberos
 
 - name: SCM
   hosts: scm
