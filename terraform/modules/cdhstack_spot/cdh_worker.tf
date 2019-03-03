@@ -12,7 +12,10 @@ resource "aws_spot_instance_request" "spot_cdh_worker" {
       Name = "spot_cdh_worker-${count.index}"
       Description = "spot_cdh_worker ${count.index}"
   }
-
+  ebs_block_device {
+    device_name = "/dev/sda1"
+    delete_on_termination = true
+  }
   volume_tags {
       Name = "spot_cdh_worker-${count.index}"
   }
