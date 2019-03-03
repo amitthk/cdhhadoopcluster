@@ -4,6 +4,8 @@ common_yum_packages:
   - gcc
   - gcc-c++
   - make
+  - java-1.8.0-openjdk
+  - java-1.8.0-openjdk-devel
   - awscli
   - ntp
   - tcpdump
@@ -13,6 +15,10 @@ common_yum_packages:
   - deltarpm
   - git
   - python-pip
+  - wget
+  - curl
+  - unzip
+  - tar
 
 ansible_become_user: root
 ansible_become_method: sudo
