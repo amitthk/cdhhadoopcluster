@@ -46,3 +46,6 @@
 #   shell: "./{{cloudera_manager_package}} --i-agree-to-all-licenses --noprompt --noreadme --nooptions"
 #   args:
 #     chdir: /home/{{ansible_ssh_user}}/tmp
+
+# - name: scm prepare database
+#   shell: /usr/share/cmf/schema/scm_prepare_database.sh mysql -h {{groups['db'][0]}} -utemp -ppassword123 --scm-host {{groups['scm'][0]}} scm scm scm JAVA_HOME=/usr/java/jdk1.7.0_67-cloudera/

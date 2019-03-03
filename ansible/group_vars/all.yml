@@ -4,3 +4,4 @@ ansible_ssh_private_key_file: ~/.ssh/cdhstack_admin.pem
 ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 ansible_become_user: root
 ansible_become_method: sudo
+cdh_version: '5.16.1'

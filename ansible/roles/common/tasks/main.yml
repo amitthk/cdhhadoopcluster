@@ -17,3 +17,59 @@
   become_user: "{{ansible_become_user}}"
   become_method: "{{ansible_become_method}}"
   with_items: "{{common_yum_packages}}"
+
+- name: Add Cloudera repo
+  template:
+    src: ../templates/cloudera-manager.repo.j2
+    dest: "/etc/yum.repos.d/cloudera-manager{{cdh_version}}.repo"
+
+
+- name: allow ntp through firewall
+  shell: firewall-cmd --add-service=ntp --permanent
+  when: inventory_hostname in groups['scm']
+
+
+- name: firewall reload
+  shell: firewall-cmd --reload
+  when: inventory_hostname in groups['scm']
+
+
+- name: Make sure Chrony is started up
+  service: name=chronyd state=running enabled=yes
+  tags: chrony
+  when: inventory_hostname in groups['scm']
+
+- name: set timezone
+  shell: timedatectl set-timezone Asia/Singapore
+
+- name: Install NTP
+  yum: name=ntp state=installed 
+  tags: ntp
+
+- name: Copy over the NTP configuration
+  template:
+    src: ./templates/ntp.conf.j2
+    dest: /etc/ntp.conf
+  notify:
+  - restart ntpd
+  tags: ntp
+
+- name: Make sure NTP is stopped
+  service: name=ntpd state=stopped enabled=yes
+  tags: ntp
+
+- name: Sync time initialy
+  shell: ntpdate 172.16.20.1
+  tags: ntp
+
+- name: Make sure NTP is started up
+  service: name=ntpd state=running enabled=yes
+  tags: ntp
+
+- name: Sync hwclock
+  shell: hwclock -w
+  tags: ntp
+
+handlers:
+- name: restart ntpd
+  service: name=ntpd state=restarted

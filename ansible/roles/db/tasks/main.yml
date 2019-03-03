@@ -1,6 +1,5 @@
 ---
-# tasks file for kerberos
-- name: ensure core packages are installed
+- name: instal mariadb
   yum:
     name: "{{item}}"
     state: present
