@@ -44,6 +44,13 @@ stages{
             /usr/local/bin/terraform plan -out=tfplan -input=false
             /usr/local/bin/terraform apply -input=false tfplan
             '''
+            sh '''
+            cd $APP_BASE_DIR/terraform
+            rm -f $APP_BASE_DIR/ansible/hosts | true
+            pwd && ls -lart .
+            chmod 755 $APP_BASE_DIR/terraform/make_inventory.py
+            python $APP_BASE_DIR/terraform/make_inventory.py $APP_BASE_DIR/terraform/terraform.tfstate
+            '''
             }
         }
     }
@@ -54,13 +61,6 @@ stages{
             }
         }
         steps{
-        sh '''
-        cd $APP_BASE_DIR/terraform
-        rm -f $APP_BASE_DIR/ansible/hosts | true
-        pwd && ls -lart .
-        chmod 755 $APP_BASE_DIR/terraform/make_inventory.py
-        python $APP_BASE_DIR/terraform/make_inventory.py $APP_BASE_DIR/terraform/terraform.tfstate
-        '''
         sh '''
         cd $APP_BASE_DIR/ansible
         ansible-playbook -i hosts main.yml
