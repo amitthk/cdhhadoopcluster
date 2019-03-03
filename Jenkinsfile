@@ -15,6 +15,7 @@ parameters {
 stages{
     stage('Init'){
         steps{
+            checkout scm 
         script{
         env.DEPLOY_ENV = "$params.DEPLOY_ENV"
         env.ACTION_TYPE = "$params.ACTION_TYPE"
@@ -46,8 +47,8 @@ stages{
             sh '''
             cd $APP_BASE_DIR/terraform
             rm -f $APP_BASE_DIR/ansible/hosts | true
+            pwd && ls -lart .
             chmod 755 $APP_BASE_DIR/terraform/make_inventory.py
-            ls -lart
             python $APP_BASE_DIR/teraform/make_inventory.py $APP_BASE_DIR/terraform/terraform.tfstate
             '''
             }
