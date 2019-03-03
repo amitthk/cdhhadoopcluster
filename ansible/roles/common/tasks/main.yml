@@ -91,9 +91,9 @@
   service: name=ntpd state=stopped enabled=yes
   tags: ntp
 
-- name: Sync time initialy
-  shell: ntpdate {{hostvars[groups['scm'][0]]['inventory_hostname']}}
-  tags: ntp
+# - name: Sync time initialy
+#   shell: ntpdate {{hostvars[groups['scm'][0]]['inventory_hostname']}}
+#   tags: ntp
 
 - name: Make sure NTP is started up
   service: name=ntpd state=running enabled=yes
