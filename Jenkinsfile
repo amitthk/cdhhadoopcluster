@@ -42,7 +42,7 @@ stages{
             /usr/local/bin/terraform init -input=false
             /usr/local/bin/terraform plan -out=tfplan -input=false
             /usr/local/bin/terraform apply -input=false tfplan
-            python make_inventory.py terraform.tfstate
+            python ./make_inventory.py ./terraform.tfstate
             '''
             }
         }
