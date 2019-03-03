@@ -96,7 +96,7 @@
 #   tags: ntp
 
 - name: Make sure NTP is started up
-  service: name=ntpd state=running enabled=yes
+  service: name=ntpd state=started enabled=yes
   tags: ntp
 
 - name: Sync hwclock
