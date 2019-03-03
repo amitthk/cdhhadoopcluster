@@ -6,6 +6,21 @@
   roles:
     - common
 
+- name: db
+  hosts: db
+  roles:
+    - db
+
+- name: ldap
+  hosts: ldap
+  roles:
+    - ldap
+
+- name: kerberos
+  hosts: kerberos
+  roles:
+    - keberos
+
 - name: SCM
   hosts: scm
   roles:

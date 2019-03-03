@@ -14,6 +14,16 @@ inventory_template = '''
 
 [workers]
 {spot_cdh_worker}
+
+#following three roles are also installed on scm as of now
+[ldap]
+{spot_cdh_scm}
+
+[kerberos]
+{spot_cdh_scm}
+
+[db]
+{spot_cdh_scm}
 '''
 
 def parse_file(file_name):
