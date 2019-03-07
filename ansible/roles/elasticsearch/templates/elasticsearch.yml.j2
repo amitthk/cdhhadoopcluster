@@ -6,7 +6,7 @@ network.host: {{ hostvars[ansible_host]['ansible_default_ipv4']['address'] }}
 
 http.port: 9200
 
-discovery.zen.ping.unicast.hosts: {{ groups['elasticsearch'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | list | to_json }}
+discovery.zen.ping.unicast.hosts: {{ groups['masters'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | list | to_json }}
 
 discovery.zen.minimum_master_nodes: 1
 
