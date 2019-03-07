@@ -46,7 +46,7 @@ stages{
             cp $aws_terraform_tfvars $APP_BASE_DIR/terraform/terraform.tfvars
             /usr/local/bin/terraform init -input=false
             /usr/local/bin/terraform plan -var instance_type=$INSTANCE_TYPE -var spot_price=$SPOT_PRICE -out=tfplan -input=false
-            /usr/local/bin/terraform apply -var instance_type=$INSTANCE_TYPE -var spot_price=$SPOT_PRICE -input=false tfplan
+            /usr/local/bin/terraform apply -input=false tfplan
             '''
             sh '''
             cd $APP_BASE_DIR/terraform
