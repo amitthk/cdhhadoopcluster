@@ -10,6 +10,8 @@ parameters {
     password(name:'AWS_KEY', defaultValue: '', description:'Enter AWS_KEY')
     choice(name: 'DEPLOY_ENV', choices: ['dev','sit','uat','prod'], description: 'Select the deploy environment')
     choice(name: 'ACTION_TYPE', choices: ['deploy','create','destroy'], description: 'Create or destroy')
+    choice(name: 'INSTANCE_TYPE', choices: ['t2.micro','m3.medium','m3.large'], description: 'Type of instance')
+    string(name: 'SPOT_PRICE', defaultValue: '0.08', description: 'Spot price')
 }
 
 stages{
@@ -19,6 +21,8 @@ stages{
         script{
         env.DEPLOY_ENV = "$params.DEPLOY_ENV"
         env.ACTION_TYPE = "$params.ACTION_TYPE"
+        env.INSTANCE_TYPE = "$params.INSTANCE_TYPE"
+        env.SPOT_PRICE = "$params.SPOT_PRICE"
         env.APP_ID = getEnvVar("${env.DEPLOY_ENV}",'APP_ID')
         env.APP_BASE_DIR = pwd()
         env.GIT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true)
@@ -39,7 +43,7 @@ stages{
             withCredentials([file(credentialsId: 'aws_terraform_tfvars', variable: 'aws_terraform_tfvars')]){
             sh '''#!/bin/bash -xe
             cd $APP_BASE_DIR/terraform
-            cp $aws_terraform_tfvars $APP_BASE_DIR/terraform/terraform.tfvars
+            cp $aws_terraform_tfvars $APP_BASE_DIR/terraform/terraform.tfvars -var instance_type=$INSTANCE_TYPE -var spot_price=$SPOT_PRICE
             /usr/local/bin/terraform init -input=false
             /usr/local/bin/terraform plan -out=tfplan -input=false
             /usr/local/bin/terraform apply -input=false tfplan
