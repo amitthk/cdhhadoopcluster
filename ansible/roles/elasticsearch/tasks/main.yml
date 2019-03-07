@@ -2,16 +2,16 @@
 # tasks file for elasticsearch
 - name: download elasticsearch
   get_url:
-    url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.6.1.rpm
-    dest: /tmp/elasticsearch-6.6.1.rpm
+    url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.15.rpm
+    dest: /tmp/elasticsearch-5.6.15.rpm
   tags:
     - elasticsearch
     - installation
 
-# sudo yum localinstall elasticsearch-6.6.1.rpm
+# sudo yum localinstall elasticsearch-5.6.15.rpm
 - name: install elasticsearch
   yum:
-    name: /tmp/elasticsearch-6.6.1.rpm
+    name: /tmp/elasticsearch-5.6.15.rpm
     state: present
   become: yes
   tags:
