@@ -43,10 +43,10 @@ stages{
             withCredentials([file(credentialsId: 'aws_terraform_tfvars', variable: 'aws_terraform_tfvars')]){
             sh '''#!/bin/bash -xe
             cd $APP_BASE_DIR/terraform
-            cp $aws_terraform_tfvars $APP_BASE_DIR/terraform/terraform.tfvars -var instance_type=$INSTANCE_TYPE -var spot_price=$SPOT_PRICE
+            cp $aws_terraform_tfvars $APP_BASE_DIR/terraform/terraform.tfvars
             /usr/local/bin/terraform init -input=false
-            /usr/local/bin/terraform plan -out=tfplan -input=false
-            /usr/local/bin/terraform apply -input=false tfplan
+            /usr/local/bin/terraform plan -var instance_type=$INSTANCE_TYPE -var spot_price=$SPOT_PRICE -out=tfplan -input=false
+            /usr/local/bin/terraform apply -var instance_type=$INSTANCE_TYPE -var spot_price=$SPOT_PRICE -input=false tfplan
             '''
             sh '''
             cd $APP_BASE_DIR/terraform
