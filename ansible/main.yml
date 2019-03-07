@@ -34,6 +34,11 @@
   roles:
     - cdh-master
 
+- name: elasticsearch
+  hosts: masters
+  roles:
+    - elasticsearch
+
 - name: worker
   hosts: workers
   roles:
