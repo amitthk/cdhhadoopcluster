@@ -68,6 +68,6 @@
     - cdh-worker
 
 - name: gateway
-  hosts: gateways
+  hosts: scm
   roles:
     - cdh-gateway
