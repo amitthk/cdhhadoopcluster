@@ -57,6 +57,12 @@
     value: 1
     state: present
 
+- name: Enable firewalld
+  service: name=firewalld state=started enabled=yes
+
+- name: Set dmz as default policy
+  command: firewall-cmd --set-default-zone=dmz
+    
 - name: allow ntp through firewall
   shell: firewall-cmd --add-service=ntp --permanent
   when: inventory_hostname in groups['scm']
@@ -68,7 +74,7 @@
 
 
 - name: Make sure Chrony is started up
-  service: name=chronyd state=running enabled=yes
+  service: name=chronyd state=started enabled=yes
   tags: chrony
   when: inventory_hostname in groups['scm']
 

@@ -3,21 +3,41 @@
   become: true
   gather_facts: False
   hosts: all
+  become: yes
+  become_user: "{{ansible_become_user}}"
+  become_method: "{{ansible_become_method}}"
   roles:
     - common
 
 - name: db
   hosts: db
+  become: yes
+  become_user: "{{ansible_become_user}}"
+  become_method: "{{ansible_become_method}}"
   roles:
     - db
 
 - name: ldap
   hosts: ldap
+  become: yes
+  become_user: "{{ansible_become_user}}"
+  become_method: "{{ansible_become_method}}"
   roles:
     - ldap
 
+- name: phpldapadmin
+  hosts: ldap
+  become: yes
+  become_user: "{{ansible_become_user}}"
+  become_method: "{{ansible_become_method}}"
+  roles:
+    - phpldapadmin
+
 - name: kerberos
   hosts: kerberos
+  become: yes
+  become_user: "{{ansible_become_user}}"
+  become_method: "{{ansible_become_method}}"
   roles:
     - kerberos
 
@@ -31,6 +51,9 @@
 
 - name: master
   hosts: masters
+  become: yes
+  become_user: "{{ansible_become_user}}"
+  become_method: "{{ansible_become_method}}"
   roles:
     - cdh-master
 
