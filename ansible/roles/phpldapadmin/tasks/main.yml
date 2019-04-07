@@ -19,8 +19,8 @@
 #     src: config.php.j2
 #     dest: /etc/phpldapadmin/config.php
 
-# - name: copy config.php
-#   shell: "cp /etc/phpldapadmin/config.php.sample /etc/phpldapadmin/config.php"
+- name: backup config.php
+  shell: "cp /etc/phpldapadmin/config.php /etc/phpldapadmin/config.php.bak"
 
 - name: process config.php
   lineinfile:
@@ -28,7 +28,7 @@
     regexp: "{{item.o}}"
     line: "{{item.n}}"
   with_items:
-    - { o: "\$servers->setValue\(\'server\',\'host\',\'127.0.0.1\'\);", n: "$servers->setValue('server','host','{{ hostvars[groups['ldap'][0]]['inventory_hostname'] }}');"}
+    - { o: "\$servers->setValue\(\'server\',\'host\',\'127.0.0.1\'\)", n: "$servers->setValue('server','host','{{ hostvars[groups['ldap'][0]]['inventory_hostname'] }}')"}
 
 - name: Open up FirewallD for httpd 
   command: "{{ item }}"
