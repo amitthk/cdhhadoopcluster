@@ -9,6 +9,11 @@
     src: httpd.conf.j2
     dest: /etc/httpd/conf/httpd.conf
 
+# - name: Process php.conf
+#   template:
+#     src: php.conf.j2
+#     dest: /etc/httpd/conf.d/php.conf
+
 - name: Process phpldapadmin.conf
   template:
     src: phpldapadmin.conf.j2
@@ -21,6 +26,14 @@
 
 - name: backup config.php
   shell: "cp /etc/phpldapadmin/config.php /etc/phpldapadmin/config.php.bak"
+
+- name: move all the httpd default confs
+  shell: "for f in /etc/httpd/conf.d/*.conf; do mv $f $f.bak ;done"
+- name: revert back the php.conf and phpldapadmin.conf
+  shell: "mv /etc/httpd/conf.d/{{item}}.bak /etc/httpd/conf.d/{{item}}"
+  with_items:
+    - 'php.conf'
+    - 'phpldapadmin.conf'
 
 - name: process config.php
   lineinfile:
