@@ -35,13 +35,13 @@
     - 'php.conf'
     - 'phpldapadmin.conf'
 
-- name: process config.php
-  lineinfile:
-    path: /etc/phpldapadmin/config.php
-    regexp: "{{item.o}}"
-    line: "{{item.n}}"
-  with_items:
-    - { o: "\$servers->setValue\(\'server\',\'host\',\'127.0.0.1\'\);", n: "$servers->setValue('server','host','{{ hostvars[groups['ldap'][0]]['inventory_hostname'] }}');"}
+# - name: process config.php
+#   lineinfile:
+#     path: /etc/phpldapadmin/config.php
+#     regexp: "{{item.o}}"
+#     line: "{{item.n}}"
+#   with_items:
+#     - { o: "\$servers->setValue\(\'server\',\'host\',\'127.0.0.1\'\);", n: "$servers->setValue('server','host','{{ hostvars[groups['ldap'][0]]['inventory_hostname'] }}');"}
 
 - name: Open up FirewallD for httpd 
   command: "{{ item }}"
