@@ -61,13 +61,13 @@
 
 #https://www.cloudera.com/documentation/enterprise/5-16-x/topics/install_cm_server.html#install_cm_server
 - name: local install the scm packages
-  shell: "yum -y --nogpgcheck localinstall ./cloudera-manager-server-*.rpm"
+  shell: "yum -y --nogpgcheck localinstall ./cloudera-manager-server-{{cdh_version}}*.rpm"
   args:
     chdir: "/home/{{ansible_ssh_user}}/tmp/{{cm_version}}/x86_64/cm/{{cdh_version}}/RPMS/x86_64/"
   when: not scm_service_status.stat.exists
 
 - name: local install the scm packages
-  shell: "yum -y --nogpgcheck localinstall ./cloudera-manager-server-db-*.rpm"
+  shell: "yum -y --nogpgcheck localinstall ./cloudera-manager-server-db-{{cdh_version}}*.rpm"
   args:
     chdir: "/home/{{ansible_ssh_user}}/tmp/{{cm_version}}/x86_64/cm/{{cdh_version}}/RPMS/x86_64/"
   when: not scm_service_status.stat.exists
