@@ -72,13 +72,13 @@
     chdir: "/home/{{ansible_ssh_user}}/tmp/{{cm_version}}/x86_64/cm/{{cdh_version}}/RPMS/x86_64/"
   when: not scm_service_status.stat.exists
 
-- name: enable the cloudera-manager-server service
+- name: enable the cloudera-scm-server service
   service:
-    name: cloudera-manager-server
+    name: cloudera-scm-server
     enabled: yes
-- name: start the cloudera-manager-server service
+- name: start the cloudera-scm-server service
   service:
-    name: cloudera-manager-server
+    name: cloudera-scm-server
     state: started
 
 # - name: scm prepare database
