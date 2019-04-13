@@ -69,7 +69,7 @@ stages{
         steps{
         sh '''
         cd $APP_BASE_DIR/ansible
-        ansible-playbook -i hosts -tags $PLAYBOOK_TAGS main.yml
+        ansible-playbook -i hosts --tags $PLAYBOOK_TAGS main.yml
         '''
         }
     }
