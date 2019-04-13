@@ -29,6 +29,8 @@
 
 - name: "Download the rpms"
   command: "wget -r -nH --cut-dirs=2 --no-parent --reject='index.html*' {{cloudera_repo_base}}/cm{{cm_version}}/redhat/{{cm_version}}/x86_64/cm/{{cdh_version}}/RPMS/x86_64/"
+  args:
+    chdir: "/home/{{ansible_ssh_user}}/tmp"
 
 - name: "set permissions for cloudera manager file"
   file:
@@ -61,13 +63,13 @@
 - name: local install the scm packages
   shell: "yum -y --nogpgcheck localinstall ./cloudera-manager-server-*.rpm"
   args:
-    chdir: "/home/{{ansible_ssh_user}}/tmp"
+    chdir: "/home/{{ansible_ssh_user}}/tmp/{{cm_version}}/x86_64/cm/{{cdh_version}}/RPMS/x86_64/"
   when: not scm_service_status.stat.exists
 
 - name: local install the scm packages
   shell: "yum -y --nogpgcheck localinstall ./cloudera-manager-server-db-*.rpm"
   args:
-    chdir: "/home/{{ansible_ssh_user}}/tmp"
+    chdir: "/home/{{ansible_ssh_user}}/tmp/{{cm_version}}/x86_64/cm/{{cdh_version}}/RPMS/x86_64/"
   when: not scm_service_status.stat.exists
 
 - name: enable the cloudera-manager-server service
