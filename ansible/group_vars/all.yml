@@ -5,6 +5,8 @@ ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 ansible_become_user: root
 ansible_become_method: sudo
 cdh_version: '5.16.1'
+cm_version: '5'
+cloudera_repo_base: https://archive.cloudera.com
 #https://www.cloudera.com/documentation/enterprise/5-2-x/topics/cm_ig_ports_cm.html
 cloudera_ports:
   - 7180

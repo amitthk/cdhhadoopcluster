@@ -27,10 +27,14 @@
     dest: "/home/{{ansible_ssh_user}}/tmp/{{cloudera_manager_package}}"
     mode: 777
 
+- name: "Download the rpms"
+  command: 'wget -r -nH --cut-dirs=2 --no-parent --reject="index.html*" {{cloudera_repo_base_url}}/cm{{cm_version}}/redhat/{{cm_version}}/x86_64/cm/{{cdh_version}}/RPMS/x86_64/'
+
 - name: "set permissions for cloudera manager file"
   file:
-    path: /home/{{ansible_ssh_user}}/tmp/{{cloudera_manager_package}}
+    path: /home/{{ansible_ssh_user}}/tmp
     mode: 777
+    recurse: yes
   become: true
 
 - name: Check if Service Exists
@@ -47,8 +51,21 @@
 #     mode: 777
 #   become: true
 
-- name: "install the cloudera manager package"
-  shell: "./{{cloudera_manager_package}} --i-agree-to-all-licenses --noprompt --noreadme --nooptions"
+# - name: "install the cloudera manager package using the bin"
+#   shell: "./{{cloudera_manager_package}} --i-agree-to-all-licenses --noprompt --noreadme --nooptions"
+#   args:
+#     chdir: "/home/{{ansible_ssh_user}}/tmp"
+#   when: not scm_service_status.stat.exists
+
+#https://www.cloudera.com/documentation/enterprise/5-16-x/topics/install_cm_server.html#install_cm_server
+- name: local install the scm packages
+  shell: "yum --nogpgcheck localinstall ./cloudera-manager-server-*.rpm"
+  args:
+    chdir: "/home/{{ansible_ssh_user}}/tmp"
+  when: not scm_service_status.stat.exists
+
+- name: local install the scm packages
+  shell: "yum --nogpgcheck localinstall ./cloudera-manager-server-db-*.rpm"
   args:
     chdir: "/home/{{ansible_ssh_user}}/tmp"
   when: not scm_service_status.stat.exists
