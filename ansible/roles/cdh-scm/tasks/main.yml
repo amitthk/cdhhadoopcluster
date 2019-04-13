@@ -70,6 +70,15 @@
     chdir: "/home/{{ansible_ssh_user}}/tmp"
   when: not scm_service_status.stat.exists
 
+- name: enable the cloudera-manager-server service
+  service:
+    name: cloudera-manager-server
+    enabled: yes
+- name: start the cloudera-manager-server service
+  service:
+    name: cloudera-manager-server
+    state: started
+
 # - name: scm prepare database
 #   shell: /usr/share/cmf/schema/scm_prepare_database.sh mysql -h {{groups['db'][0]}} -utemp -ppassword123 --scm-host {{groups['scm'][0]}} scm scm scm JAVA_HOME=/usr/java/jdk1.7.0_67-cloudera/
 
