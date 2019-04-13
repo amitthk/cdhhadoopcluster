@@ -67,7 +67,7 @@
   when: not scm_service_status.stat.exists
 
 - name: local install the scm packages
-  shell: "yum -y --nogpgcheck localinstall ./cloudera-manager-server-db-{{cdh_version}}*.rpm"
+  shell: "yum -y --nogpgcheck localinstall ./cloudera-manager-server-db-2-{{cdh_version}}*.rpm"
   args:
     chdir: "/home/{{ansible_ssh_user}}/tmp/{{cm_version}}/x86_64/cm/{{cdh_version}}/RPMS/x86_64/"
   when: not scm_service_status.stat.exists
