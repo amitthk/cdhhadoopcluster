@@ -33,10 +33,10 @@
     mode: 777
   become: true
 
-  - name: Check if Service Exists
-    stat: path=/etc/init.d/{{cloudera-scm-server}}
-    register: scm_service_status
-
+- name: Check if Service Exists
+  stat:
+    path: "/etc/init.d/{{cloudera-scm-server}}"
+  register: scm_service_status
 
 # - name: Unarchive a {{cloudera_manager_package}} file that is already on the remote machine
 #   unarchive:
@@ -50,7 +50,7 @@
 - name: "install the cloudera manager package"
   shell: "./{{cloudera_manager_package}} --i-agree-to-all-licenses --noprompt --noreadme --nooptions"
   args:
-    chdir: /home/{{ansible_ssh_user}}/tmp
+    chdir: "/home/{{ansible_ssh_user}}/tmp"
   when: scm_service_status.stat.exists == False
 
 # - name: scm prepare database
