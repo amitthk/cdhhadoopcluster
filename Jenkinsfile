@@ -10,8 +10,9 @@ parameters {
     password(name:'AWS_KEY', defaultValue: '', description:'Enter AWS_KEY')
     choice(name: 'DEPLOY_ENV', choices: ['dev','sit','uat','prod'], description: 'Select the deploy environment')
     choice(name: 'ACTION_TYPE', choices: ['deploy','create','destroy'], description: 'Create or destroy')
-    choice(name: 'INSTANCE_TYPE', choices: ['t2.micro','m3.medium','m3.large'], description: 'Type of instance')
-    string(name: 'SPOT_PRICE', defaultValue: '0.08', description: 'Spot price')
+    choice(name: 'INSTANCE_TYPE', choices: ['m3.large','t2.micro','m3.medium'], description: 'Type of instance')
+    string(name: 'SPOT_PRICE', defaultValue: '0.03', description: 'Spot price')
+    string(name: 'PLAYBOOK_TAGS', defaultValue: 'all', description: 'playbook tags to run')
 }
 
 stages{
@@ -23,6 +24,7 @@ stages{
         env.ACTION_TYPE = "$params.ACTION_TYPE"
         env.INSTANCE_TYPE = "$params.INSTANCE_TYPE"
         env.SPOT_PRICE = "$params.SPOT_PRICE"
+        env.PLAYBOOK_TAGS = "$params.PLAYBOOK_TAGS"
         env.APP_ID = getEnvVar("${env.DEPLOY_ENV}",'APP_ID')
         env.APP_BASE_DIR = pwd()
         env.GIT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true)
@@ -67,7 +69,7 @@ stages{
         steps{
         sh '''
         cd $APP_BASE_DIR/ansible
-        ansible-playbook -i hosts main.yml
+        ansible-playbook -i hosts -tags $PLAYBOOK_TAGS main.yml
         '''
         }
     }
