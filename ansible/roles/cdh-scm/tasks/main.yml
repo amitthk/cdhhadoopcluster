@@ -53,7 +53,6 @@
 - name: Open up FirewallD for ldap 
   command: "firewall-cmd --zone=dmz --add-port={{item}}/tcp --permanent"
   with_items:
-    - 7180
-    - 7183
+    - "{{cloudera_ports}}"
 - name: reload firewalld
   command: firewall-cmd --reload

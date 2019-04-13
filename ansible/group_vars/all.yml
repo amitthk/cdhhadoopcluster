@@ -5,3 +5,7 @@ ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 ansible_become_user: root
 ansible_become_method: sudo
 cdh_version: '5.16.1'
+cloudera_ports:
+  - 7180
+  - 7182
+  - 7183
