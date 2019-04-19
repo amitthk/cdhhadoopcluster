@@ -92,3 +92,8 @@ variable "availability_zone" {
   description = "availability_zone"
   default = "ap-southeast-1a"
 }
+
+variable "stack_timestamp" {
+  description = "stack_timestamp"
+  default = "${formatdate('DDMMMYYYYhhmm_ZZZ',timestamp())}"
+}

@@ -26,6 +26,9 @@ stages{
         env.SPOT_PRICE = "$params.SPOT_PRICE"
         env.PLAYBOOK_TAGS = "$params.PLAYBOOK_TAGS"
         env.APP_ID = getEnvVar("${env.DEPLOY_ENV}",'APP_ID')
+        env.repo_bucket_credentials_id = "s3repoadmin";
+        env.aws_s3_bucket_name = 'jvcdp-repo';
+        env.aws_s3_bucket_region = 'ap-souteast-1';
         env.APP_BASE_DIR = pwd()
         env.GIT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true)
         env.TIMESTAMP = sh (script: "date +'%Y%m%d%H%M%S%N' | sed 's/[0-9][0-9][0-9][0-9][0-9][0-9]\$//g'", returnStdout: true)
@@ -42,7 +45,7 @@ stages{
             }
         }
         steps{
-            withCredentials([file(credentialsId: 'aws_terraform_tfvars', variable: 'aws_terraform_tfvars')]){
+            withCredentials([[file(credentialsId: 'aws_terraform_tfvars', variable: 'aws_terraform_tfvars')]]){
             sh '''#!/bin/bash -xe
             cd $APP_BASE_DIR/terraform
             cp $aws_terraform_tfvars $APP_BASE_DIR/terraform/terraform.tfvars
@@ -57,6 +60,22 @@ stages{
             chmod 755 $APP_BASE_DIR/terraform/make_inventory.py
             python $APP_BASE_DIR/terraform/make_inventory.py $APP_BASE_DIR/terraform/terraform.tfstate
             '''
+            }
+            withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
+            accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+            credentialsId: "${repo_bucket_credentials_id}", 
+            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']])
+            {
+                file_s = ["ansible/hosts","terraform/terraform.tfstate"]
+                file_s.each{ distFileName -> {
+                        awsIdentity() //show us what aws identity is being used
+                        def srcLocation = "${APP_BASE_DIR}"+"/"+"${distFileName}";
+                        def distLocation = 'terraform/' + "${env.TIMESTAMP}/"+ distFileName;
+                        withAWS(region: "${env.aws_s3_bucket_region}"){
+                        s3Upload(file: srcLocation, bucket: "${env.aws_s3_bucket_name}", path: distLocation)
+                        }
+                    }
+                }
             }
         }
     }
