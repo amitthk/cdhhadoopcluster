@@ -45,7 +45,7 @@ stages{
             }
         }
         steps{
-            withCredentials([[file(credentialsId: 'aws_terraform_tfvars', variable: 'aws_terraform_tfvars')]]){
+            withCredentials([file(credentialsId: 'aws_terraform_tfvars', variable: 'aws_terraform_tfvars')]){
             sh '''#!/bin/bash -xe
             cd $APP_BASE_DIR/terraform
             cp $aws_terraform_tfvars $APP_BASE_DIR/terraform/terraform.tfvars
