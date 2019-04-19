@@ -65,22 +65,6 @@ stages{
             python $APP_BASE_DIR/terraform/make_inventory.py $APP_BASE_DIR/terraform/terraform.tfstate
             '''
             }
-            script{
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
-                accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
-                credentialsId: "${repo_bucket_credentials_id}", 
-                secretKeyVariable: 'AWS_SECRET_KEY']]){
-                    for(distFileName in ["ansible/hosts","terraform/terraform.tfstate"]) {
-                            awsIdentity() //show us what aws identity is being used
-                            def srcLocation = "${APP_BASE_DIR}"+"/"+"${distFileName}";
-                            def distLocation = 'terraform/' + "${env.TIMESTAMP}"+"/"+ distFileName;
-                            echo "Uploading ${srcLocation} to ${distLocation}"
-                            withAWS(region: "${env.aws_s3_bucket_region}"){
-                            s3Upload(file: srcLocation, bucket: "${env.aws_s3_bucket_name}", path: distLocation)
-                            }
-                        }
-                }
-            }
         }
     }
     stage('Deploy'){
@@ -119,6 +103,22 @@ post {
         sh '''
         rm -f $APP_BASE_DIR/terraform/terraform.tfvars | true
         '''
+        script{
+        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
+        accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+        credentialsId: "${repo_bucket_credentials_id}", 
+        secretKeyVariable: 'AWS_SECRET_KEY']]){
+            for(distFileName in ["ansible/hosts","terraform/terraform.tfstate"]) {
+                    awsIdentity() //show us what aws identity is being used
+                    def srcLocation = "${APP_BASE_DIR}"+"/"+"${distFileName}";
+                    def distLocation = 'terraform/' + "${env.TIMESTAMP}"+"/"+ distFileName;
+                    echo "Uploading ${srcLocation} to ${distLocation}"
+                    withAWS(region: "${env.aws_s3_bucket_region}"){
+                    s3Upload(file: srcLocation, bucket: "${env.aws_s3_bucket_name}", path: distLocation)
+                    }
+                }
+        }
+        }
     }
 }
 }
