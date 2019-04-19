@@ -65,7 +65,7 @@ stages{
             accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
             credentialsId: "${repo_bucket_credentials_id}", 
             secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
-                file_s = ["ansible/hosts","terraform/terraform.tfstate"]
+                def file_s = ["ansible/hosts","terraform/terraform.tfstate"]
                 for(distFileName in file_s) {
                         awsIdentity() //show us what aws identity is being used
                         def srcLocation = "${APP_BASE_DIR}"+"/"+"${distFileName}";
