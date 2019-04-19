@@ -32,7 +32,7 @@ stages{
         env.APP_ID = getEnvVar("${env.DEPLOY_ENV}",'APP_ID')
         env.repo_bucket_credentials_id = "s3repoadmin";
         env.aws_s3_bucket_name = 'jvcdp-repo';
-        env.aws_s3_bucket_region = 'ap-souteast-1';
+        env.aws_s3_bucket_region = 'ap-southeast-1';
         env.APP_BASE_DIR = pwd()
         env.GIT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true)
         env.TIMESTAMP = sh (script: "date +'%Y%m%d%H%M%S%N' | sed 's/[0-9][0-9][0-9][0-9][0-9][0-9]\$//g'", returnStdout: true)
