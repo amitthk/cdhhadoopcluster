@@ -64,8 +64,7 @@ stages{
             withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
             accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
             credentialsId: "${repo_bucket_credentials_id}", 
-            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']])
-            {
+            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
                 file_s = ["ansible/hosts","terraform/terraform.tfstate"]
                 for(distFileName in file_s) {
                         awsIdentity() //show us what aws identity is being used
@@ -76,7 +75,6 @@ stages{
                         s3Upload(file: srcLocation, bucket: "${env.aws_s3_bucket_name}", path: distLocation)
                         }
                     }
-                }
             }
         }
     }
