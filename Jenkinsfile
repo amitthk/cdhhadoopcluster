@@ -6,6 +6,10 @@ pipeline{
 
 agent any
 
+options {
+      timeout(time: 1, unit: 'HOURS') 
+}
+
 parameters {
     password(name:'AWS_KEY', defaultValue: '', description:'Enter AWS_KEY')
     choice(name: 'DEPLOY_ENV', choices: ['dev','sit','uat','prod'], description: 'Select the deploy environment')
