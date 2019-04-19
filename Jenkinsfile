@@ -69,7 +69,7 @@ stages{
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
                 accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
                 credentialsId: "${repo_bucket_credentials_id}", 
-                secretKeyVariable: 'AWS_SECRET_KEY']]){
+                secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
                     for(distFileName in ["ansible/hosts","terraform/terraform.tfstate"]) {
                             awsIdentity() //show us what aws identity is being used
                             def srcLocation = "${APP_BASE_DIR}"+"/"+"${distFileName}";
