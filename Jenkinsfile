@@ -14,8 +14,8 @@ parameters {
     password(name:'AWS_KEY', defaultValue: '', description:'Enter AWS_KEY')
     choice(name: 'DEPLOY_ENV', choices: ['dev','sit','uat','prod'], description: 'Select the deploy environment')
     choice(name: 'ACTION_TYPE', choices: ['deploy','create','destroy'], description: 'Create or destroy')
-    choice(name: 'INSTANCE_TYPE', choices: ['m3.large','t2.micro','m3.medium'], description: 'Type of instance')
-    string(name: 'SPOT_PRICE', defaultValue: '0.03', description: 'Spot price')
+    string(name: 'INSTANCE_TYPE', defaultValue: 't2.large', description: 'Type of instance')
+    string(name: 'SPOT_PRICE', defaultValue: '0.037', description: 'Spot price')
     string(name: 'PLAYBOOK_TAGS', defaultValue: 'all', description: 'playbook tags to run')
 }
 
