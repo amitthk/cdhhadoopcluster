@@ -4,3 +4,14 @@ mariadb_root_password: changethis
 mariadb_scm_user: cdh_scm_user
 mariadb_scm_password: changethis
 cloudera_scm_db: cdh_scm_db
+cdh_scm_databases:
+  - scm
+  - hive
+  - hue
+  - amon
+  - rman
+  - metastore
+  - sentry
+  - nav
+  - navms
+  - oozie

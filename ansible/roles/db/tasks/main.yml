@@ -47,23 +47,8 @@
     - 127.0.0.1
   when: is_root_pwd_set.rc == 0
 
-- name: "Create a new database with name {{cloudera_scm_db}}"
-  mysql_db:
-    name: "{{cloudera_scm_db}}"
-    host: localhost
-    login_user: root
-    login_password: "{{ mariadb_root_password }}"
-    state: present
-
-- name: "create the {{mariadb_scm_user}} user"
-  mysql_user:
-    name: "{{mariadb_scm_user}}"
-    password: "{{mariadb_scm_password}}"
-    priv: '*.*:ALL,GRANT'
-    host: localhost
-    login_user: root
-    login_password: "{{ mariadb_root_password }}"
-    state: present
+- name: Include the tasks to create the cdh scm databases
+  include: cdh_scm_databases.yml
 
 - name: Open up FirewallD for db 
   command: "firewall-cmd --zone=dmz --add-port={{item}}/tcp --permanent"
