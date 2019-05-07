@@ -19,6 +19,9 @@ resource "aws_spot_instance_request" "spot_cdh_worker" {
   volume_tags {
       Name = "spot_cdh_worker-${count.index}"
   }
+  root_block_device {
+    delete_on_termination = true
+  }
 
 
   provisioner "local-exec" {
