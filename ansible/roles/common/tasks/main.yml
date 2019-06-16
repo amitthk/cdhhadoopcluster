@@ -22,10 +22,13 @@
   yum:
     name: "{{common_yum_packages}}"
     state: present
-  become: yes
-  become_user: "{{ansible_become_user}}"
-  become_method: "{{ansible_become_method}}"
 
+- name: add the jdk.sh to profile.d
+  template:
+    src: jdk.sh.j2
+    dest: /etc/profile.d/jdk.sh
+    mode: 0755
+  
 - name: Add Cloudera repo
   template:
     src: cloudera-manager.repo.j2
@@ -35,9 +38,6 @@
   yum:
     name: "{{item}}"
     state: present
-  become: yes
-  become_user: "{{ansible_become_user}}"
-  become_method: "{{ansible_become_method}}"
   with_items:
     - cloudera-manager-agent.x86_64
     - cloudera-manager-daemons.x86_64
