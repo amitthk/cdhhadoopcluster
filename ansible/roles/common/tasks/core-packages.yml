@@ -1,8 +1,8 @@
 ---
-- name: copy the yum repo
-  file:
-    src: cloudera-manager.repo
-    dest: /etc/yum.repos.d/
+# - name: copy the yum repo
+#   file:
+#     src: cloudera-manager.repo
+#     dest: /etc/yum.repos.d/
 
 - name: install the core packages
   yum:
