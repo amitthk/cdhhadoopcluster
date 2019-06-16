@@ -1,0 +1,21 @@
+---
+- name: copy the yum repo
+  file:
+    src: cloudera-manager.repo
+    dest: /etc/yum.repos.d/
+
+- name: install the core packages
+  yum:
+    name: "{{cloudera_common_packages}}"
+    state: present
+
+- name: Update the cloudera-scm-agent to point to cm
+  lineinfile:
+    path: /etc/cloudera-scm-agent/config.ini
+    regexp: '^server_host='
+    line: "server_host=\"{{scm_hostname}}\""
+
+- name: restart the aagent service
+  service:
+    name: cloudera-scm-agent
+    state: restarted

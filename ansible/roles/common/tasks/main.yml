@@ -124,7 +124,7 @@
   tags: ntp
 
 # - name: Sync time initialy
-#   shell: ntpdate {{hostvars[groups['scm'][0]]['inventory_hostname']}}
+#   shell: ntpdate {{scm_hostname}}
 #   tags: ntp
 
 - name: Make sure NTP is started up
@@ -141,3 +141,7 @@
     - "{{cloudera_ports}}"
 - name: reload firewalld
   command: firewall-cmd --reload
+
+
+- name: include the core-packages
+  include_tasks: core-packages.yml

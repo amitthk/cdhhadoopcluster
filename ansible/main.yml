@@ -11,6 +11,18 @@
   tags:
     - common
 
+- name: Prerequisites
+  become: true
+  gather_facts: False
+  hosts: all
+  become: yes
+  become_user: "{{ansible_become_user}}"
+  become_method: "{{ansible_become_method}}"
+  roles:
+    - harden
+  tags:
+    - harden
+
 - name: db
   hosts: db
   become: yes
