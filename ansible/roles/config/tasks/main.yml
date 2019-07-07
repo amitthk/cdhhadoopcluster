@@ -15,6 +15,11 @@
     regexp: '^server_host=.*$'
     line: "server_host={{scm_hostname}}"
 
+- name: update he config for all the machines
+  lineinfile:
+    path: /etc/cloudera-scm-agent/config.ini
+    regexp: '^use_tls=.*$'
+    line: "use_tls=1" 
 
 - name: generate the self signed certs for all servers
   shell: "echo 'will do openssl cert gen here'"
