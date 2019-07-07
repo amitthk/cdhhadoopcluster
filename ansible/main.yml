@@ -11,7 +11,7 @@
   tags:
     - common
 
-- name: Prerequisites
+- name: config
   become: true
   gather_facts: False
   hosts: all
@@ -19,9 +19,21 @@
   become_user: "{{ansible_become_user}}"
   become_method: "{{ansible_become_method}}"
   roles:
-    - harden
+    - config
   tags:
-    - harden
+    - config
+
+# - name: Prerequisites
+#   become: true
+#   gather_facts: False
+#   hosts: all
+#   become: yes
+#   become_user: "{{ansible_become_user}}"
+#   become_method: "{{ansible_become_method}}"
+#   roles:
+#     - harden
+#   tags:
+#     - harden
 
 - name: db
   hosts: db
@@ -33,35 +45,35 @@
   tags:
     - db
 
-- name: ldap
-  hosts: ldap
-  become: yes
-  become_user: "{{ansible_become_user}}"
-  become_method: "{{ansible_become_method}}"
-  roles:
-    - ldap
-  tags:
-    - ldap
+# - name: ldap
+#   hosts: ldap
+#   become: yes
+#   become_user: "{{ansible_become_user}}"
+#   become_method: "{{ansible_become_method}}"
+#   roles:
+#     - ldap
+#   tags:
+#     - ldap
 
-- name: phpldapadmin
-  hosts: ldap
-  become: yes
-  become_user: "{{ansible_become_user}}"
-  become_method: "{{ansible_become_method}}"
-  roles:
-    - phpldapadmin
-  tags:
-    - phpldapadmin
+# - name: phpldapadmin
+#   hosts: ldap
+#   become: yes
+#   become_user: "{{ansible_become_user}}"
+#   become_method: "{{ansible_become_method}}"
+#   roles:
+#     - phpldapadmin
+#   tags:
+#     - phpldapadmin
 
-- name: kerberos
-  hosts: kerberos
-  become: yes
-  become_user: "{{ansible_become_user}}"
-  become_method: "{{ansible_become_method}}"
-  roles:
-    - kerberos
-  tags:
-    - kerberos
+# - name: kerberos
+#   hosts: kerberos
+#   become: yes
+#   become_user: "{{ansible_become_user}}"
+#   become_method: "{{ansible_become_method}}"
+#   roles:
+#     - kerberos
+#   tags:
+#     - kerberos
 
 - name: SCM
   hosts: scm

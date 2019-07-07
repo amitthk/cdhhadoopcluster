@@ -8,6 +8,7 @@ cdh_version: '5.16.1'
 cm_version: '5'
 cloudera_repo_base: https://archive.cloudera.com
 scm_hostname: hostvars[groups['scm'][0]]['inventory_hostname']
+ldap_host_ip: "{{groups['ldap'][0]}}"
 #https://www.cloudera.com/documentation/enterprise/5-2-x/topics/cm_ig_ports_cm.html
 cloudera_ports:
   - 7180

@@ -1,0 +1,19 @@
+---
+- name: copy the krb5 config
+  template:
+    src: krb5.conf.j2
+    dest: /etc/krb5.conf
+    mode: 0755
+
+- name: update he config for all the machines
+  lineinfile:
+    path: /etc/cloudera-scm-agent/config.ini
+    regexp: '^server_host=.*$'
+    line: "server_host={{scm_hostname}}"
+
+
+- name: generate the self signed certs for all servers
+  shell: "echo 'will do openssl cert gen here'"
+
+- name: "import the certs to keystore"
+  shell: "echo 'copy the ssl certs'"
