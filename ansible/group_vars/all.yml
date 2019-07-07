@@ -11,7 +11,7 @@ scm_hostname: "{{hostvars[groups['scm'][0]]['inventory_hostname']}}"
 #scm_ip: "{{hostvars[groups['scm'][0]]['ansible_eth0']['ipv4']['address']}}"
 
 #our inventory contains the ip
-scm_ip: "{{hostvars[groups['scm'][0]]}}"
+scm_ip: "{{groups['scm'][0]}}"
 ldap_host_ip: "{{groups['ldap'][0]}}"
 
 ldap_server_domain_name: ldap.amitthk.com
