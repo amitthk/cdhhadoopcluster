@@ -1,7 +1,7 @@
 ---
 - name: set hostname
   hostname:
-    name: "{{inventory_hostname}}"
+    name: "{{hostvars[inventory_hostname]['ansible_default_ipv4']['address']}}"
 
 - name: copy the krb5 config
   template:
