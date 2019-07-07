@@ -7,7 +7,7 @@ ansible_become_method: sudo
 cdh_version: '5.16.1'
 cm_version: '5'
 cloudera_repo_base: https://archive.cloudera.com
-scm_hostname: hostvars[groups['scm'][0]]['inventory_hostname']
+scm_hostname: "{{hostvars[groups['scm'][0]]['inventory_hostname']}}"
 ldap_host_ip: "{{groups['ldap'][0]}}"
 
 ldap_server_domain_name: ldap.amitthk.com
