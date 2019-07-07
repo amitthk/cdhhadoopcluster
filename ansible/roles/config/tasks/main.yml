@@ -1,4 +1,8 @@
 ---
+- name: set hostname
+  hostname:
+    name: "{{inventory_hostname}}"
+
 - name: copy the krb5 config
   template:
     src: krb5.conf.j2
