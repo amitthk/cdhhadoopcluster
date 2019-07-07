@@ -36,11 +36,10 @@
 
 - name: install cloudera packages
   yum:
-    name: "{{item}}"
+    name:
+      - cloudera-manager-agent.x86_64
+      - cloudera-manager-daemons.x86_64
     state: present
-  with_items:
-    - cloudera-manager-agent.x86_64
-    - cloudera-manager-daemons.x86_64
 
 - name: disable selinux
   shell: sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
