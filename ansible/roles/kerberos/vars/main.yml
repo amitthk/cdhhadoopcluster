@@ -1,6 +1,6 @@
 ---
 # vars file for kerberos
-krb_default_realm: pys3viewer.mywire.org
+krb_default_realm: ldap.amitthk.com
 kerberos_server_pkgs:
   - krb5-server
   - krb5-libs
