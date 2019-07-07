@@ -13,7 +13,7 @@
 
 - name: config
   become: true
-  gather_facts: False
+  gather_facts: yes
   hosts: all
   become: yes
   become_user: "{{ansible_become_user}}"
