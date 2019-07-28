@@ -32,21 +32,20 @@
     path: /home/{{ansible_ssh_user}}/tmp
     mode: 777
     recurse: yes
-  become: true
 
 - name: Check if Service Exists
   stat:
     path: "/etc/init.d/cloudera-scm-server"
   register: scm_service_status
 
-- name: Unarchive a {{cloudera_manager_package}} file that is already on the remote machine
-  unarchive:
-    src: /home/{{ansible_ssh_user}}/tmp/{{cloudera_manager_package}}
-    dest: /opt
-    copy: no
-#        remote_src: yes
-    mode: 777
-  become: true
+# - name: Unarchive a {{cloudera_manager_package}} file that is already on the remote machine
+#   unarchive:
+#     src: /home/{{ansible_ssh_user}}/tmp/{{cloudera_manager_package}}
+#     dest: /opt
+#     copy: no
+# #        remote_src: yes
+#     mode: 777
+#   become: true
 
 - name: "install the cloudera manager package using the bin"
   shell: "./{{cloudera_manager_package}} --i-agree-to-all-licenses --noprompt --noreadme --nooptions"
