@@ -53,10 +53,10 @@
     chdir: "/home/{{ansible_ssh_user}}/tmp"
   when: not scm_service_status.stat.exists
 
-- name: include rpm tasks
-  include_tasks: rpm_install_cm.yml
-  tags:
-    - rpm_install_cm
+# - name: include rpm tasks
+#   include_tasks: rpm_install_cm.yml
+#   tags:
+#     - rpm_install_cm
 
 # - name: scm prepare database
 #   shell: /usr/share/cmf/schema/scm_prepare_database.sh mysql -h {{groups['db'][0]}} -utemp -ppassword123 --scm-host {{groups['scm'][0]}} scm scm scm JAVA_HOME=/usr/java/jdk1.7.0_67-cloudera/
