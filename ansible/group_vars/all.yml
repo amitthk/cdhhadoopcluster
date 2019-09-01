@@ -9,8 +9,9 @@ cm_version: '5'
 cloudera_repo_base: https://archive.cloudera.com
 scm_hostname: "{{hostvars[groups['scm'][0]]['inventory_hostname']}}"
 
-#use private ips
 scm_ip: "{{hostvars[groups['scm'][0]]['inventory_hostname']}}"
+
+scm_private_ip: "{{ansible_eth0['ipv4']['address']}}"
 
 #our inventory contains the ip
 #scm_ip: "{{hostvars[groups['scm'][0]]['inventory_hostname']}}"

@@ -1,4 +1,7 @@
 ---
+
+scm_private_ip: "{{ansible_eth0['ipv4']['address']}}"
+
 # defaults file for common
 common_yum_packages:
   - gcc

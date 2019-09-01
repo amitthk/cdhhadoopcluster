@@ -13,7 +13,7 @@
   lineinfile:
     path: /etc/cloudera-scm-agent/config.ini
     regexp: '^server_host=.*$'
-    line: "server_host={{scm_ip}}"
+    line: "server_host={{scm_private_ip}}"
 
 - name: update he config for all the machines
   lineinfile:

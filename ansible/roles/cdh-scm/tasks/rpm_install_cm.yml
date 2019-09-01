@@ -1,4 +1,9 @@
 ---
+- name: Check if Service Exists
+  stat:
+    path: "/etc/init.d/cloudera-scm-server"
+  register: scm_service_status
+
 - name: delete everyting cloudera
   shell: "rpm -qa | grep -i cloudera-manager | while read line ; do rpm -e $line ; done"
   args:
@@ -17,20 +22,28 @@
     chdir: "/home/{{ansible_ssh_user}}/tmp/{{cm_version}}/x86_64/cm/{{cdh_version}}/RPMS/x86_64/"
   when: not scm_service_status.stat.exists
 
-- name: local install the scm packages
-  shell: "yum -y --nogpgcheck localinstall ./cloudera-manager-server-db-2-{{cdh_version}}*.rpm"
-  args:
-    chdir: "/home/{{ansible_ssh_user}}/tmp/{{cm_version}}/x86_64/cm/{{cdh_version}}/RPMS/x86_64/"
-  when: not scm_service_status.stat.exists
+- name: copy the db.properties file
+  template:
+    src: db.properties.j2
+    dest: /etc/cloudera-scm-server/db.properties
+    mode: '0600'
+    owner: cloudera-scm
+    group: cloudera-scm
 
-- name: enable the cloudera-scm-server-db service
-  service:
-    name: cloudera-scm-server-db
-    enabled: yes
-- name: start the cloudera-scm-server-db service
-  service:
-    name: cloudera-scm-server-db
-    state: started
+# - name: local install the scm packages
+#   shell: "yum -y --nogpgcheck localinstall ./cloudera-manager-server-db-2-{{cdh_version}}*.rpm"
+#   args:
+#     chdir: "/home/{{ansible_ssh_user}}/tmp/{{cm_version}}/x86_64/cm/{{cdh_version}}/RPMS/x86_64/"
+#   when: not scm_service_status.stat.exists
+
+# - name: enable the cloudera-scm-server-db service
+#   service:
+#     name: cloudera-scm-server-db
+#     enabled: yes
+# - name: start the cloudera-scm-server-db service
+#   service:
+#     name: cloudera-scm-server-db
+#     state: started
 
 - name: enable the cloudera-scm-server service
   service:

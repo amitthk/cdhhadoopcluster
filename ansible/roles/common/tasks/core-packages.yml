@@ -13,7 +13,7 @@
   lineinfile:
     path: /etc/cloudera-scm-agent/config.ini
     regexp: '^server_host='
-    line: "server_host=\"{{scm_hostname}}\""
+    line: "server_host=\"{{scm_private_ip}}\""
 
 - name: restart the aagent service
   service:

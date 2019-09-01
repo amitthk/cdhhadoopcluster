@@ -45,15 +45,15 @@
   tags:
     - db
 
-# - name: ldap
-#   hosts: ldap
-#   become: yes
-#   become_user: "{{ansible_become_user}}"
-#   become_method: "{{ansible_become_method}}"
-#   roles:
-#     - ldap
-#   tags:
-#     - ldap
+- name: ldap
+  hosts: ldap
+  become: yes
+  become_user: "{{ansible_become_user}}"
+  become_method: "{{ansible_become_method}}"
+  roles:
+    - ldap
+  tags:
+    - ldap
 
 # - name: phpldapadmin
 #   hosts: ldap
@@ -65,15 +65,15 @@
 #   tags:
 #     - phpldapadmin
 
-# - name: kerberos
-#   hosts: kerberos
-#   become: yes
-#   become_user: "{{ansible_become_user}}"
-#   become_method: "{{ansible_become_method}}"
-#   roles:
-#     - kerberos
-#   tags:
-#     - kerberos
+- name: kerberos
+  hosts: kerberos
+  become: yes
+  become_user: "{{ansible_become_user}}"
+  become_method: "{{ansible_become_method}}"
+  roles:
+    - kerberos
+  tags:
+    - kerberos
 
 - name: SCM
   hosts: scm
