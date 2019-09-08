@@ -1,0 +1,9 @@
+dn: {{ldap_root_dn_suffix}}
+objectclass: dcObject
+objectclass: organization
+o: Admin amitthk
+
+dn: cn={{ldap_server_admin}},{{ldap_root_dn_suffix}}
+objectclass: organizationalRole
+cn: {{ldap_server_admin}}
+uid: {{ldap_server_admin}}

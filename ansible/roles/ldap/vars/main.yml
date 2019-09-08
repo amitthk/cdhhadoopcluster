@@ -10,3 +10,4 @@ ldap_server_pkgs:
 
 ldap_server_app_path: "/etc/openldap/"
 ldap_server_user: ldapadmin
+ldap_server_admin: "{{ldap_server_user}}"

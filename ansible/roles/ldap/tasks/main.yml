@@ -57,3 +57,6 @@
   with_items:
   - firewall-cmd --zone=dmz --add-port=389/tcp --permanent
   - firewall-cmd --reload
+  ignore_errors: yes
+
+- include: setup_users.yml
