@@ -15,6 +15,7 @@
     login_host: localhost
     login_user: root
     login_password: "{{ mariadb_root_password }}"
+    host: "{{scm_private_ip}}"
     state: present
 
 - name: "Create a new database with name {{item}}"
@@ -35,6 +36,7 @@
     login_host: localhost
     login_user: root
     login_password: "{{ mariadb_root_password }}"
+    host: "{{scm_private_ip}}"
     state: present
   with_items:
     - "{{cdh_scm_databases}}"

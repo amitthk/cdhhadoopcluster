@@ -2,7 +2,7 @@
 # defaults file for cdh-scm
 cloudera_manager_package: cloudera-manager-installer.bin
 repo_base_url: "{{cloudera_repo_base}}/cm{{cm_version}}/installer/latest"
-mariadb_scm_dbhost: "{{hostvars[groups['db'][0]]['inventory_hostname']}}"
+mariadb_scm_dbhost: "{{db_private_ip}}"
 mariadb_scm_user: scm
 mariadb_scm_dbname: scm
 mariadb_scm_password: changethis

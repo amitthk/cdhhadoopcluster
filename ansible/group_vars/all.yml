@@ -12,6 +12,7 @@ scm_hostname: "{{hostvars[groups['scm'][0]]['inventory_hostname']}}"
 scm_ip: "{{hostvars[groups['scm'][0]]['inventory_hostname']}}"
 
 scm_private_ip: "{{hostvars[groups['scm'][0]]['ansible_default_ipv4']['address']}}"
+db_private_ip: "{{hostvars[groups['db'][0]]['ansible_default_ipv4']['address']}}"
 
 #our inventory contains the ip
 #scm_ip: "{{hostvars[groups['scm'][0]]['inventory_hostname']}}"

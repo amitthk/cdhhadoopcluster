@@ -10,6 +10,12 @@
     chdir: "/home/{{ansible_ssh_user}}/tmp/{{cm_version}}/x86_64/cm/{{cdh_version}}/RPMS/x86_64/"
   when: scm_service_status.stat.exists
 
+- name: "ensure /home/{{ansible_ssh_user}}/tmp exists"
+  file:
+    path: /home/{{ansible_ssh_user}}/tmp
+    state: directory
+    mode: 755
+
 - name: "Download the rpms"
   command: "wget -r -nH --cut-dirs=2 --no-parent --reject='index.html*' {{cloudera_repo_base}}/cm{{cm_version}}/redhat/{{cm_version}}/x86_64/cm/{{cdh_version}}/RPMS/x86_64/"
   args:
@@ -20,7 +26,7 @@
   shell: "yum -y --nogpgcheck localinstall ./cloudera-manager-server-{{cdh_version}}*.rpm"
   args:
     chdir: "/home/{{ansible_ssh_user}}/tmp/{{cm_version}}/x86_64/cm/{{cdh_version}}/RPMS/x86_64/"
-  when: not scm_service_status.stat.exists
+#  when: not scm_service_status.stat.exists
 
 - name: copy the db.properties file
   template:
