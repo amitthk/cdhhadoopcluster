@@ -1,2 +1,3 @@
 hosts
 .tfstate
+hostvars.json
