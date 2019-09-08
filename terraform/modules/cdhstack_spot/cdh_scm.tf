@@ -16,6 +16,7 @@ resource "aws_spot_instance_request" "spot_cdh_scm" {
   ebs_block_device {
     device_name = "/dev/sda1"
     delete_on_termination = true
+    volume_size = "${var.spot_cdh_master_volume_size}"
   }
 
   volume_tags {
@@ -23,6 +24,7 @@ resource "aws_spot_instance_request" "spot_cdh_scm" {
   }
   root_block_device {
     delete_on_termination = true
+    volume_size = "${var.spot_cdh_master_volume_size}"
  }
 
   provisioner "local-exec" {

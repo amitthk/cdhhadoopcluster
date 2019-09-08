@@ -15,12 +15,14 @@ resource "aws_spot_instance_request" "spot_cdh_worker" {
   ebs_block_device {
     device_name = "/dev/sda1"
     delete_on_termination = true
+    volume_size = "${var.spot_cdh_worker_volume_size}"
   }
   volume_tags {
       Name = "spot_cdh_worker-${count.index}"
   }
   root_block_device {
     delete_on_termination = true
+    volume_size = "${var.spot_cdh_worker_volume_size}"
   }
 
 

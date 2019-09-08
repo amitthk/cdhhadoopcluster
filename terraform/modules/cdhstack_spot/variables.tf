@@ -19,5 +19,7 @@ variable "public_subnets_cidr_blocks" {}
 variable "private_subnets_cidr_blocks" {}
 variable "spot_cdh_master_count" {}
 variable "spot_cdh_worker_count" {}
+variable "spot_cdh_master_volume_size" {}
+variable "spot_cdh_worker_volume_size" {}
 variable "ingress_from_port" {}
 variable "ingress_to_port" {}

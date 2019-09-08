@@ -73,6 +73,16 @@ variable "spot_cdh_worker_count" {
   default = 3
 }
 
+variable "spot_cdh_master_volume_size" {
+  description = "spot_cdh_master_volume_size"
+  default = 20
+}
+
+variable "spot_cdh_worker_volume_size" {
+  description = "spot_cdh_worker_volume_size"
+  default = 20
+}
+
 variable "spot_price" {
   description = "spot_price"
   default = 0.0045

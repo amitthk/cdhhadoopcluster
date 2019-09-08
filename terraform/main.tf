@@ -15,6 +15,8 @@ module "cdhstack_spot" {
   private_subnets_cidr_blocks = "${var.private_subnets_cidr_blocks}"
   spot_cdh_master_count = "${var.spot_cdh_master_count}"
   spot_cdh_worker_count = "${var.spot_cdh_worker_count}"
+  spot_cdh_master_volume_size = "${var.spot_cdh_master_volume_size}"
+  spot_cdh_worker_volume_size = "${var.spot_cdh_worker_volume_size}"
   ingress_from_port = "${var.ingress_from_port}"
   ingress_to_port = "${var.ingress_to_port}"
   vpc_cidr = "${var.vpc_cidr}"
