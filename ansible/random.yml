@@ -1,0 +1,16 @@
+---
+- name: Basic
+  become: true
+  gather_facts: True
+  hosts: all
+  become: yes 
+  become_method: sudo
+  tasks:
+    - debug: 
+        msg: "{{hostvars[inventory_hostname]['ansible_default_ipv4']['address']}}"
+    - name: stop firewalld
+      service:
+        name: firewalld
+        state: stopped
+  tags:
+    - ping

@@ -1,2 +1,11 @@
 ---
 # defaults file for kerberos
+krb_default_realm: ldap.amitthk.com
+kerberos_server_pkgs:
+  - krb5-server
+  - krb5-libs
+  - krb5-workstation
+krb_default_realm: ldap.amitthk.com
+ldap_server_rootpw: changethis
+krb_kdc_root_db_pw: "{{ldap_server_rootpw}}"
+kdc_admin_user: ldapadmin

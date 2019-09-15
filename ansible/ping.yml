@@ -4,8 +4,7 @@
   gather_facts: True
   hosts: all
   become: no
-  become_user: "{{ansible_become_user}}"
-  become_method: "{{ansible_become_method}}"
+  become_method: sudo
   tasks:
     - name: ping the host
       ping:
@@ -19,5 +18,12 @@
         msg: "{{hostvars[inventory_hostname]['ansible_default_ipv4']['address']}}"
     - debug: 
         msg: "{{hostvars[groups['scm'][0]]['ansible_default_ipv4']['address']}}"
+    - name: create /tmp
+      file:
+        path: /tmp
+        state: directory
+        mode: '0777'
+      become: yes
+      become_method: sudo
   tags:
     - ping

@@ -16,6 +16,12 @@
   become_user: "{{ansible_become_user}}"
   become_method: "{{ansible_become_method}}"
 
+- name: install the python expect 
+  pip:
+    name: 
+      - pexpect
+    state: present
+
 - name: Copy the krb5.conf
   template:
     src: krb5.conf.j2
@@ -30,3 +36,32 @@
   template:
     src: kadm5.acl.j2
     dest: /var/kerberos/krb5kdc/kadm5.acl
+
+- name: create the kdc database
+  expect:
+    command: "kdb5_util create -r {{krb_default_realm|upper}} -s"
+    responses:
+      (?i)Enter KDC database master key: "{{krb_kdc_root_db_pw}}"
+      (?i)Re-enter KDC database master key to verify: "{{krb_kdc_root_db_pw}}"
+
+- name: enable the "{{item}}" service
+  service:
+    name: "{{item}}"
+    enabled: yes
+  with_items:
+    - krb5kdc.service
+    - kadmin.service
+- name: start the "{{item}}" service
+  service:
+    name: "{{item}}"
+    state: started
+  with_items:
+    - krb5kdc.service
+    - kadmin.service
+
+- name: add the admin principal
+  expect:
+    command: "kadmin.local -q 'addprinc {{kdc_admin_user}}/admin'"
+    responses:
+      (?i)Enter password for principal: "{{krb_kdc_root_db_pw}}"
+      (?i)Re-enter password for principal: "{{krb_kdc_root_db_pw}}"

@@ -28,7 +28,7 @@
   with_items:
     - "{{cdh_scm_databases}}"
 
-- name: "create the {{item}} user"
+- name: "create the corresponding users"
   mysql_user:
     name: "{{item}}"
     password: "{{mariadb_scm_password}}"
@@ -36,7 +36,18 @@
     login_host: localhost
     login_user: root
     login_password: "{{ mariadb_root_password }}"
-    # host: "{{scm_private_ip}}"
+    host: "{{scm_private_ip}}"
+    state: present
+  with_items:
+    - "{{cdh_scm_databases}}"
+
+- name: "Ensure the users can login from all hosts"
+  mysql_user:
+    name: "{{item}}"
+    priv: "{{item}}.*:ALL,GRANT"
+    login_host: localhost
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
     host_all: yes
     state: present
   with_items:

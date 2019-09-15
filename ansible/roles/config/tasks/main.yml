@@ -19,7 +19,12 @@
   lineinfile:
     path: /etc/cloudera-scm-agent/config.ini
     regexp: '^use_tls=.*$'
-    line: "use_tls=0" 
+    line: "use_tls=0"
+
+- name: restart the cloudera-scm-agent
+  service:
+    name: cloudera-scm-agent
+    state: restarted
 
 - name: generate the self signed certs for all servers
   shell: "echo 'will do openssl cert gen here'"

@@ -44,13 +44,13 @@
   template:
     src: slapd.conf.j2
     dest: "{{ ldap_server_app_path }}/slapd.conf"
-  notify: 
-   - restart slapd
 
 - name: Copy the ldap.conf configuration file
   template:
     src: ldap.conf.j2
     dest: "{{ ldap_server_app_path }}/ldap.conf"
+  notify: 
+   - restart slapd
 
 - name: Open up FirewallD for ldap 
   command: "{{ item }}"
@@ -59,4 +59,8 @@
   - firewall-cmd --reload
   ignore_errors: yes
 
+
+
 - include: setup_users.yml
+
+#- include: dnsrecord.yml
