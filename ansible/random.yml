@@ -12,5 +12,13 @@
       service:
         name: firewalld
         state: stopped
+    - name: restart agent
+      service:
+        name: cloudera-scm-agent
+        state: restarted
+    - name: cloudera-scm-server
+      service:
+        name: cloudera-scm-server
+        state: restarted
   tags:
     - ping
