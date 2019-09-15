@@ -11,8 +11,8 @@
 
 [realms]
     {{ krb_default_realm|upper }} = {
-        kdc = {{ krb_default_realm}}:88
-        admin_server = {{ krb_default_realm}}:749
+        kdc = {{ kdc_host_ip}}:88
+        admin_server = {{ kdc_host_ip}}:749
         default_domain = {{ krb_default_realm}}
     }
 

@@ -17,6 +17,7 @@ db_private_ip: "{{hostvars[groups['db'][0]]['ansible_default_ipv4']['address']}}
 #our inventory contains the ip
 #scm_ip: "{{hostvars[groups['scm'][0]]['inventory_hostname']}}"
 ldap_host_ip: "{{groups['ldap'][0]}}"
+kdc_host_ip: "{{groups['kerberos'][0]}}"
 
 ldap_server_domain_name: ldap.amitthk.com
 krb_default_realm: "{{ldap_server_domain_name}}"
