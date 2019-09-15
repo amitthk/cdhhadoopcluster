@@ -13,6 +13,7 @@ default_realm = {{ krb_default_realm|upper }}
         key_stash_file = /var/kerberos/krb5kdc/stash
         max_life = 10h 0m 0s
         max_renewable_life = 7d 0h 0m 0s
-        master_key_type = des3-hmac-sha1
-        supported_enctypes = aes256-cts:normal aes128-cts:normal des3-hmac-sha1:normal arcfour-hmac:normal des-hmac-sha1:normal des-cbc-md5:normal des-cbc-crc:normal
+        master_key_type = aes256-cts-hmac-sha1-96
+        supported_enctypes = aes256-cts-hmac-sha1-96:normal aes128-cts-hmac-sha1-96:normal rc4-hmac:normal
         default_principal_flags = +preauth
+    }
