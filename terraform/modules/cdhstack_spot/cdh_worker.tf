@@ -7,6 +7,7 @@ resource "aws_spot_instance_request" "spot_cdh_worker" {
     wait_for_fulfillment = true
     associate_public_ip_address = true
     security_groups = ["${aws_security_group.cdhstack.name}"]
+    private_ip = "${lookup(var.worker_node_ips,count.index)}"
 
   tags {
       Name = "spot_cdh_worker-${count.index}"

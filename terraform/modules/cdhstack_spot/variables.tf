@@ -23,3 +23,34 @@ variable "spot_cdh_master_volume_size" {}
 variable "spot_cdh_worker_volume_size" {}
 variable "ingress_from_port" {}
 variable "ingress_to_port" {}
+
+variable "scm_node_ip"{
+    default = {
+        "0" = "172.31.0.6"
+        "1" = "172.31.0.7"
+    }
+}
+
+variable "master_node_ips"{
+        default = {
+        "0" = "172.31.1.6"
+        "1" = "172.31.1.7"
+        "2" = "172.31.1.8"
+        "3" = "172.31.1.9"
+        "4" = "172.31.1.10"
+        "5" = "172.31.1.11"
+    }
+}
+
+variable "worker_node_ips"{
+    default = {
+        "0" = "172.31.1.50"
+        "1" = "172.31.1.51"
+        "2" = "172.31.1.52"
+        "3" = "172.31.1.53"
+        "4" = "172.31.1.54"
+        "5" = "172.31.1.55"
+        "6" = "172.31.1.56"
+        "7" = "172.31.1.57"
+    }
+}

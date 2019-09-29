@@ -7,6 +7,7 @@ resource "aws_spot_instance_request" "spot_cdh_scm" {
     availability_zone = "${var.availability_zone}"
     spot_price = "${var.spot_price}"
     security_groups = ["${aws_security_group.cdhstack.name}"]
+    private_ip = "${lookup(var.scm_node_ip,count.index)}"
 
   tags {
       Name = "spot_cdh_scm"

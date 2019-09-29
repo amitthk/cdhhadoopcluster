@@ -8,6 +8,7 @@ resource "aws_spot_instance_request" "spot_cdh_master" {
     count = "${var.spot_cdh_master_count}"
     spot_price = "${var.spot_price}"
     security_groups = ["${aws_security_group.cdhstack.name}"]
+    private_ip = "${lookup(var.master_node_ips,count.index)}"
 
   tags {
       Name = "spot_cdh_master-${count.index}"

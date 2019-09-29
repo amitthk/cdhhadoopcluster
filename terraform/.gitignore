@@ -1,5 +1,6 @@
 *.tfstate
 *.tfstate.backup
+*.tfstate.lock
 .terraform/
 inventory.txt
 terraform.tfvars
