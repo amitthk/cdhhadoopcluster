@@ -44,6 +44,7 @@
 - name: "Ensure the users can login from all hosts"
   mysql_user:
     name: "{{item}}"
+    password: "{{mariadb_scm_password}}"
     priv: "{{item}}.*:ALL,GRANT"
     login_host: localhost
     login_user: root
