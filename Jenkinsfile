@@ -61,7 +61,7 @@ stages{
             cd $APP_BASE_DIR/terraform
             rm -f $APP_BASE_DIR/ansible/hosts | true
             pwd && ls -lart .
-            chmod 755 $APP_BASE_DIR/terraform/make_inventory.py
+            chmod 755 $APP_BASE_DIR/terraform/make_inventory_spot.py
             python $APP_BASE_DIR/terraform/make_inventory.py $APP_BASE_DIR/terraform/terraform.tfstate
             '''
             }

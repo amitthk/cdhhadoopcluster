@@ -6,27 +6,24 @@ import os
 PATH = os.path.dirname(os.path.abspath(__file__))
 INVENTORY_FILE_PATH = os.path.join(PATH,'..','ansible','hosts')
 inventory_template = '''
-[bastion]
-{cdhstack_bastion}
-
 [scm]
-{cdh_scm}
+{spot_cdh_scm}
 
 [masters]
-{cdh_master}
+{spot_cdh_master}
 
 [workers]
-{cdh_worker}
+{spot_cdh_worker}
 
 #following three roles are also installed on scm as of now
 [ldap]
-{cdh_scm}
+{spot_cdh_scm}
 
 [kerberos]
-{cdh_scm}
+{spot_cdh_scm}
 
 [db]
-{cdh_scm}
+{spot_cdh_scm}
 '''
 
 def parse_file(file_name):
