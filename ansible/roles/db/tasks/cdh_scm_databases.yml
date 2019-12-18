@@ -48,7 +48,7 @@
     login_host: localhost
     login_user: root
     login_password: "{{ mariadb_root_password }}"
-    host_all: yes
+    host: '%'
     state: present
   with_items:
     - "{{cdh_scm_databases}}"
